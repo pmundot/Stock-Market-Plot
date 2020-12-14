@@ -49,6 +49,7 @@ end=datetime.datetime(2020,11,10) #Can go a year in the past
 Buis = input("Input buisness ID: ").upper()
 
 #Buisness ID entered correctly
+#https://stackoverflow.com/questions/60039161/getting-a-future-warning-when-importing-for-yahoo-with-pandas-datareader
 try:
     df=data.DataReader(name=Buis, data_source="yahoo", start=start, end=end)
 except:
