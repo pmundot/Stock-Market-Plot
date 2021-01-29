@@ -1,0 +1,25 @@
+,Unnamed: 0,Code,Exchange,Letters
+0,0,AMEX,American Stock Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+1,1,ASX,Australian Securities Exchange,"['1', '2', '3', '4', '5', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+2,2,CBOT,Chicago Board of Trade,"['A', 'B', 'C', 'D', 'F', 'J', 'K', 'M', 'O', 'R', 'S', 'T', 'U', 'W', 'X', 'Y', 'Z']"
+3,3,CFE,Chicago Futures Exchange,"['B', 'M', 'V']"
+4,4,CME,Chicago Merchantile Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y']"
+5,5,COMEX,New York Commodity Exchange,"['A', 'G', 'H', 'L', 'Q', 'S', 'T', 'U', 'Z']"
+6,6,EUREX,EUREX Futures Exchange,"['A', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T', 'U', 'Y']"
+7,7,FOREX,Foreign Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']"
+8,8,HKEX,Hong Kong Stock Exchange,['0']
+9,9,INDEX,Global Indices,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']"
+10,10,KCBT,Kansas City Board of Trade,['K']
+11,11,LIFFE,LIFFE Futures and Options,"['A', 'C', 'E', 'F', 'G', 'I', 'L', 'Q', 'R', 'S', 'V', 'X', 'Y']"
+12,12,LSE,London Stock Exchange,"['0', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+13,13,MGEX,Minneapolis Grain Exchange,"['D', 'I', 'M', 'N']"
+14,14,NASDAQ,NASDAQ Stock Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+15,15,NYBOT,New York Board of Trade,"['A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'U', 'Y', 'Z']"
+16,16,NYMEX,New York Merchantile Exchange,"['B', 'C', 'D', 'F', 'G', 'H', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'W']"
+17,17,NYSE,New York Stock Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+18,18,OTCBB,OTC Bulletin Board,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+19,19,SGX,Singapore Stock Exchange,"['1', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'i', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+20,20,TSX,Toronto Stock Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+21,21,TSXV,Toronto Venture Exchange,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+22,22,USMF,Mutual Funds,"['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']"
+23,23,WCE,Winnipeg Commodity Exchange,['R']
