@@ -31,6 +31,7 @@ def close_match1(entry):
 while True:
     try:
         code = get_code(ET,compare)
+        break
     except:
         guess = close_match(ET)
         res = input("did you mean {}? ".format(guess))
@@ -42,17 +43,22 @@ while True:
 companies = pd.read_csv(code+'.csv')
 get_close = companies['Company'].tolist()
 
-CT = 'Edwards'#input("Enter Company: ")
+CT = input("Enter Company: ").title()
 
-#while True:
-#    try:
-#        code1 = get_code1(CT,companies)
-#    except:
-#        guess = close_match(CT)
-#        res = input("did you mean {}? ".format(guess))
-#        if res[0].lower()=='y':
-#            code1 = get_code1(guess,companies)
-#            break
-#        CT = input("Enter company (company may not be in this stock exchange): ").title()
+while True:
+    boole = companies['Company'].str.startswith(CT, na = False)
+    new_comp = companies[boole]
+    inter = new_comp['Company'].tolist()
+    if len(inter)==0 or inter is None:
+        print("Company does not exist in this stock exchange or spelling is incorrect.")
+        CT = input("Enter Company: ").title()
+    elif len(inter)>1:
+        print("More than one company starts with that input")
+        print("Please pick from the following")
+        for i in inter:
+            print(i)
+        CT = input("Please enter company name: ").title()
+    else:
+        print(get_code1(inter[0],companies))
+        break
 
-#print(code1)
