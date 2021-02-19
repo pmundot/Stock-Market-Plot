@@ -10,34 +10,6 @@ from bokeh.models.annotations import Title
 from bokeh.embed import components
 from bokeh.resources import CDN
 
-
-URL='http://eoddata.com/stocklist/NYSE/'
-
-#Clean up code:
-#get ride of table headers code and name
-
-def stockname(URL):
-    symbol=[]
-    buisness=[]
-    for c in ascii_uppercase:
-        url=URL+c+'.htm'
-        req=get(url)
-        soup=BeautifulSoup(req.text,"html.parser")
-        Tab=soup.find('table',class_="quotes")
-        info=Tab.find_all('tr')
-        for i in range(len(info)):
-            j=0
-            for stig in info[i]:
-                if j==0:
-                    symbol.append(stig.get_text())
-                elif j==1:
-                    buisness.append(stig.get_text())
-                else:
-                    pass
-                j=+1
-    return(symbol,buisness)
-
-
 #export to SQLlite database or csv file
 
 #get stock info

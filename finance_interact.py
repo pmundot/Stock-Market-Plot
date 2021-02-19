@@ -7,8 +7,8 @@ from difflib import get_close_matches
 
 ET = input("Enter Stock exchange: ").title()
 
-compare = pd.read_csv("All_stock.csv")
-get_close = compare["Exchange"].tolist()
+Exchange = pd.read_csv("All_stock.csv")
+compare = Exchange["Exchange"].tolist()
 
 def get_code(entry,df):
     if entry in df['Exchange'].tolist():
@@ -22,18 +22,18 @@ def get_code1(entry,df):
         symb = df['Code'].iloc[int(pos_ex)]
     return(symb)
 
-def close_match(entry):
-    return(get_close_matches(entry,get_close,n=3,cutoff=0.8)[0])
+def close_match(entry,comp):
+    return(get_close_matches(entry,comp,n=3,cutoff=0.8)[0])
 
-def close_match1(entry):
-    return(get_close_matches(entry,get_close,n=3,cutoff=0.8))
+def close_match1(entry,comp):
+    return(get_close_matches(entry,comp,n=3,cutoff=0.8)[0])
 
 while True:
     try:
-        code = get_code(ET,compare)
+        code = get_code(ET,Exchange)
         break
     except:
-        guess = close_match(ET)
+        guess = close_match(ET,compare)
         res = input("did you mean {}? ".format(guess))
         if res[0].lower()=='y':
             code = get_code(guess,compare)
@@ -41,7 +41,6 @@ while True:
         ET = input("Enter Stock exchange: ").title()
      
 companies = pd.read_csv(code+'.csv')
-get_close = companies['Company'].tolist()
 
 CT = input("Enter Company: ").title()
 
@@ -54,10 +53,15 @@ while True:
         CT = input("Enter Company: ").title()
     elif len(inter)>1:
         print("More than one company starts with that input")
-        print("Please pick from the following")
-        for i in inter:
-            print(i)
-        CT = input("Please enter company name: ").title()
+        guess = close_match1(CT,inter)
+        res = input("did you mean {}? ".format(guess))
+        if res[0].lower()=='y':
+            print(get_code1(guess,companies))
+        else:
+            print("Please pick from the following")
+            for i in inter:
+                print(i)
+            CT = input("Please enter company name: ").title()
     else:
         print(get_code1(inter[0],companies))
         break
