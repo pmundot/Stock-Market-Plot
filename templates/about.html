@@ -1,0 +1,19 @@
+{% extends "Page.html" %} {% block content %}
+
+<div class="about">
+    <form class="POST">
+        <input type="date" id="start" name="start">
+        <label for="start">Start</label>
+        <input type="date" id="end" name="end">
+        <label for="end">end</label>
+        <button type="submit">search</button>
+    </form>
+</div>
+
+<div class="respond">
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+</div>
+
+{% endblock %}

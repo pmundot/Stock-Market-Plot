@@ -9,16 +9,17 @@ import difflib
 from difflib import SequenceMatcher
 from difflib import get_close_matches
 
-All_S = pd.read_csv('All_stock.csv')
 
+
+All_S = pd.read_csv('All_stock.csv')
 symbols = All_S['Code'].tolist()
 exchanges = All_S['Exchange'].tolist()
 letters = All_S['Letters'].tolist()
 
-def get_code(entry,df):
+def get_code(ex,df):
     info  = namedtuple('info','symbol lst pos')
-    if entry in df['Exchange'].tolist():
-        pos_ex = df[df['Exchange']==entry].index.item()
+    if ex in exchanges:
+        pos_ex = df[df['Exchange']==ex].iloc[0]
         symb = df['Code'].iloc[int(pos_ex)]
         letters = df['Letters'].iloc[int(pos_ex)]
     return(info(symb,letters,pos_ex))

@@ -1,0 +1,17 @@
+{% extends "Page.html" %} {% block content %}
+<div class="respond">
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+</div>
+<div class="search_div">
+    <form method="post">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="fname" placeholder="firstname">
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lname" placeholder="lastname">
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+{% endblock %}
