@@ -3,19 +3,18 @@
 
 <head>
     <title>Stonks</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/Main.css')}}">
+    <link ...href="{{url_for('static', filename='static/main.css')}}" rel="stylesheet" type=text/css/>
 </head>
 
 <body>
     <header>
         <div class="banner">
-            <img src="stock_market\\templates\\stonks.jpg" alt='logo' width=150>
+
             <h1 class="logo">Stock Monitor</h1>
-            </img>
+
 
             <strong><nav>
                 <ul class = "menu">
-                    <li><a href="{{url_for('plot') }}">plot</a></li>
                     <li><a href="{{url_for('home') }}">home</a></li>
                     <li><a href="{{url_for('about') }}">about</a></li>
                 </ul>

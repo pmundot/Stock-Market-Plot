@@ -1,5 +1,5 @@
 import pandas as pd
-import pandas_datareader as data
+from pandas_datareader import data as pdr
 import numpy as np
 import sys
 import os
@@ -10,10 +10,11 @@ from requests import get
 import difflib
 from difflib import get_close_matches
 from difflib import SequenceMatcher
-#from bokeh.plotting import show, figure, output_file
-#from bokeh.models.annotations import Title
-#from bokeh.embed import components
-#from bokeh.resources import CDN
+from bokeh.plotting import show, figure, output_file
+from bokeh.models.annotations import Title
+from bokeh.embed import components
+from bokeh.resources import CDN
+from bokeh.io import curdoc
 
 class exchange:
     def __init__(self,search):
@@ -136,16 +137,14 @@ class buisness:
 
 class Flask_buisness:
 
-    def __init__(self,buis,ex):
+    def __init__(self,buis):
         self.buis = buis.title()
-        self.search = ex
         self.seq = SequenceMatcher()
     
     def find_buis_exchange(self):
-        self.exfile = exchange(self.search).run()
-        exchanger = pd.read_csv(self.exfile+'.csv') 
-        self.symbols = exchanger['Code'].tolist()
-        self.companies = exchanger['Company'].tolist()
+        self.exchanger = pd.read_csv('Exchanges.csv') 
+        self.symbols = self.exchanger['Code'].tolist()
+        self.companies = self.exchanger['Company'].tolist()
 
     def getting_close_buis(self):
         self.find_buis_exchange()
@@ -178,13 +177,6 @@ class Flask_buisness:
         else:
             return('Company does not exists in this exchange')
 
-    def run(self):
-        try:
-            return(self.getting_close_buis())
-        except FileNotFoundError:
-            exchange(self.search).stockname()
-            return(self.getting_close_buis())
-
 
 def inc_dec(c,o):
     if c>o:
@@ -196,30 +188,28 @@ def inc_dec(c,o):
     return(value)
 
 def stockd(start,end,buisness):
-    df=data.DataReader(name=buisness, data_source="yahoo", start=start, end=end)
+    df=pdr.get_data_yahoo(buisness, start=start, end=end)
     df['Status']=[inc_dec(c,o) for c,o in zip(df.Close,df.Open)]
     df['Middle']=(df.Open+df.Close)/2
     df['Height']=abs(df.Close-df.Open)
     return(df)
 
+def stock_plot(df,comp):
+    p=figure(x_axis_type='datetime',height=300,width=1000, sizing_mode='scale_width')
+    t = Title()
+    t.text = comp
+    p.title = t
+    p.grid.grid_line_alpha=0.3
+    h12=12*60*60*1000
+    curdoc().theme = "dark_minimal"
+    p.segment(df.index,df.High,df.index,df.Low,color="black")
 
-#p=figure(x_axis_type='datetime',height=300,width=1000, sizing_mode='scale_width')
-#t = Title()
-#t.text = 'Match'
-#p.title = t
-#p.grid.grid_line_alpha=0.3
-#h12=12*60*60*1000
+    p.rect(df.index[df['Status']=='Increase'],df.Middle[df.Status=='Increase'],
+        h12,df.Height[df.Status=='Increase'],fill_color='lime',line_color='black')
 
-#p.segment(df.index,df.High,df.index,df.Low,color="black")
+    p.rect(df.index[df['Status']=='Decrease'],df.Middle[df.Status=='Decrease'],
+        h12,df.Height[df.Status=='Decrease'],fill_color='red',line_color='black')
+    web,div1=components(p)
+    cdn_js=CDN.js_files[0]
+    return(web,div1,cdn_js)
 
-#p.rect(df.index[df['Status']=='Increase'],df.Middle[df.Status=='Increase'],
-#    h12,df.Height[df.Status=='Increase'],fill_color='#CCFFFF',line_color='black')
-
-#p.rect(df.index[df['Status']=='Decrease'],df.Middle[df.Status=='Decrease'],
-#    h12,df.Height[df.Status=='Decrease'],fill_color='#FF3333',line_color='black')
-
-#website_skeleton,div1=components(p)
-#cdn_js=CDN.js_files[0]
-#output_file('cs.html')
-#show(p)
-#print(stockd(datetime.datetime(2021,1,12),datetime.datetime(2021,3,12),'AAPL'))

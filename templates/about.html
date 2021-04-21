@@ -2,18 +2,27 @@
 
 <div class="about">
     <form class="POST">
-        <input type="date" id="start" name="start">
-        <label for="start">Start</label>
-        <input type="date" id="end" name="end">
-        <label for="end">end</label>
+        <input title="company name" placeholder="company name" type="search" name="company" required><br>
+        <input type="checkbox" id="NYSE" name="ex" value="NYSE">
+        <label for="NYSE"> NYSE</label><br>
+        <input type="checkbox" id="NASDAQ" name="ex" value="NASDAQ">
+        <label for="NYSE"> NASDAQ</label><br>
+        <input type="checkbox" id="LSE" name="ex" value="LSE">
+        <label for="LSE"> LSE</label><br>
+        <input type="checkbox" id="HKEX" name="ex" value="HKEX">
+        <label for="HKEX"> HKEX</label><br>
+        <input type="checkbox" id="EUREX" name="ex" value="EUREX">
+        <label for="EUREX"> EUREX</label><br>
         <button type="submit">search</button>
     </form>
 </div>
 
 <div class="respond">
-    {% if message %}
-    <p>{{ message }}</p>
-    {% endif %}
+    <table class="dataframe mystyle">
+        {% for table in tables %}
+        <p>{{titles[loop.index]}}</p>
+        {{ table|safe }} {% endfor %}
+    </table>
 </div>
 
 {% endblock %}

@@ -1,57 +1,51 @@
-from flask import render_template, Flask, request
+from flask import render_template, Flask, request, flash
+import pandas as pd
 from datetime import datetime, timedelta
-import pandas_datareader as data
-from Search_Exchange import buisness, stockd, inc_dec
+from pandas_datareader import data as pdr
+from Search_Exchange import buisness, stockd, inc_dec, stock_plot
 
-def date(lst):
-    return(datetime(int(lst[2]),int(lst[0]),int(lst[1])))
 
 app = Flask(__name__)
 lst = {'NYSE':'New York Stock Exchange','AMEX':'American Stock Exchange','NASDAQ':'NASDAQ Stock Exchange'}
-@app.route('/',methods=['GET','POST'])
-def plot():
-    message = ' '
-    if request.method == "POST": 
-       # getting input with name = fname in HTML form 
-       first_name = request.form.get("fname") 
-       # getting input with name = lname in HTML form  
-       last_name = request.form.get("lname")  
-       message =  "Your name is "+first_name + last_name 
-    else:
-        message = "yo fatty "
-    return render_template('plot.html', message=message)
 
-@app.route('/home/',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def home():
-    message=' '
+    start = datetime.now()
+    end = start - timedelta(days=7)
     if request.method == 'GET':
-        stock = request.args.get("exchange")
-        if stock == ' ':
-            return render_template("home.html", message = "enter exchange", lst=lst)
         try:
+            start = request.args.get("start")
+            end = request.args.get("end")
             company = request.args.get("company")
-            start = request.args.get("start")
-            end = request.args.get("end")
-            time = request.args.getlist("time")
-            message = stockd(date(start),date(end),'AAPL')
-            return render_template("home.html", message = message, lst=lst)
+            df=stockd(start,end,company)
         except:
-            start = request.args.get("start")
-            end = request.args.get("end")
-            message = stockd(date(start),date(end),'AAPL')
-            return render_template("home.html", message = message, lst=lst)
-    return render_template("home.html", message =message, lst=lst)
+            end = datetime.now()
+            start = end - timedelta(days=7) 
+            company = 'A'
+            df=stockd(start,end,company)
+        plots = stock_plot(df,company)
+        df = df[['High','Low','Open','Close','Status']]
+        return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1], tables=[df.to_html(classes='data')], titles=df.columns.values)
+    return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1])
 
 @app.route('/about/',methods=['GET','POST'])
 def about():
-    message = ' '
+    data = pd.read_csv('stock_market//Pop_Ex.csv')
     if request.method == 'GET':
-        tot =request.form.get('start').split('-')
-        tot1 =request.form.get('end').split('-')
-        message = tot
-        return render_template("about.html",message=message)
-    return render_template("about.html",message=message)
+        try:
+            company = request.args.get("company").title()
+        except:
+            company = "A"
+        data = data.loc[data['Company'].str.startswith(company, na=False)]
+        exchanges = request.args.getlist('ex')
+        if len(exchanges)!=0:
+            data = data[data['Ex Code'].isin(exchanges)]
+            data.sortby('Company')
+            data = data[['Code','Company','Exchange','Ex Code']]
+        return render_template("about.html",tables=[data.to_html(classes='data')], titles=data.columns.values)
+    return render_template("about.html",tables=[data.to_html(classes='data')], titles=data.columns.values)
 
     
 if __name__=="__main__": #allows control over function
     app.run(debug=True) 
+

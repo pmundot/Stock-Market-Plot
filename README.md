@@ -1,7 +1,7 @@
 ## Stock-Market-Plot
 
 <p>
-The following project while fully workson 3 different files, has yet toreach its full patential. 
+The following project while fully workson 3 different files, has yet to reach its full patential. 
 
 The end goal for this project is to have a fully developed webpage that can drop down multipe plots
 </p>

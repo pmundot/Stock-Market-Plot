@@ -2,32 +2,24 @@
 
 <div class="Input Setup">
     <form class="POST">
-        <select id="exchange" name="exchange">
-            <option value=' '>Choose a Exchange</option>
-            {% for k,v in lst.items()%}
-            <OPTION value={{k}}>{{v}}</OPTION>
-            {%endfor%}
-        </select>
-        <input title="company name" placeholder="company name" type="search" name="company" required>
+        <input title="company name" placeholder="company code" type="search" name="company" required>
         <input type="date" id="start" name="start" , value="2021-3-22">
         <label for="start">Start</label>
         <input type="date" id="end" name="end" , value="2021-1-1">
         <label for="start">End</label>
-        <input type="checkbox" id="1week" name="time" value=7>
-        <label for="week">1 week</label>
-        <input type="checkbox" id="2week" name="time" value=14>
-        <label for="week">2 weeks</label>
-        <input type="checkbox" id="month" name="time" value=30>
-        <label for="week">1 month</label>
-        <input type="checkbox" id="3month" name="time" value=91>
-        <label for="week">3 month</label>
-        <button type="submit">search</button>
+        <button type="submit">view</button>
+        <a href="{{url_for('about')}}" target="popup" onclick="window.open('{{ url_for( 'about') }}','name','width=700,height=500,top=100,left=100')">Need Help?</a>
     </form>
 </div>
 <div class="respond">
-    {% if message %}
-    <p>{{ message }}</p>
-    {% endif %}
+    <div class='Plot'>
+        {{the_div | safe}}
+        <script src={{link}}></script>
+        {{ the_script|safe }}
+    </div>
+    <div class="Table">
+        {% for table in tables %} {{titles[loop.index]}} {{ table|safe }} {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
