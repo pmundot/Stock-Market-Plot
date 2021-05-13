@@ -1,6 +1,6 @@
 {% extends "Page.html" %} {% block content %}
 
-<div class="about">
+<div class="Input_Setup">
     <form class="POST">
         <input title="company name" placeholder="company name" type="search" name="company" required><br>
         <input type="checkbox" id="NYSE" name="ex" value="NYSE">
@@ -18,11 +18,10 @@
 </div>
 
 <div class="respond">
-    <table class="dataframe mystyle">
-        {% for table in tables %}
-        <p>{{titles[loop.index]}}</p>
-        {{ table|safe }} {% endfor %}
-    </table>
+    {% for table in tables %}
+    <p> {{ table|safe }} </p>
+    {% endfor %}
+
 </div>
 
 {% endblock %}

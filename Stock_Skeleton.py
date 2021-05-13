@@ -2,11 +2,11 @@ from flask import render_template, Flask, request, flash
 import pandas as pd
 from datetime import datetime, timedelta
 from pandas_datareader import data as pdr
-from Search_Exchange import buisness, stockd, inc_dec, stock_plot
+from Search_Exchange import buisness, stockd, inc_dec, stock_plot, add_class
 
 
 app = Flask(__name__)
-lst = {'NYSE':'New York Stock Exchange','AMEX':'American Stock Exchange','NASDAQ':'NASDAQ Stock Exchange'}
+
 
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -17,16 +17,19 @@ def home():
             start = request.args.get("start")
             end = request.args.get("end")
             company = request.args.get("company")
-            df=stockd(start,end,company)
+            df=stockd(start,end,company).sort_values(by='Date',ascending=False)
         except:
             end = datetime.now()
             start = end - timedelta(days=7) 
             company = 'A'
-            df=stockd(start,end,company)
-        plots = stock_plot(df,company)
-        df = df[['High','Low','Open','Close','Status']]
-        return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1], tables=[df.to_html(classes='data')], titles=df.columns.values)
-    return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1])
+            df=stockd(start,end,company).sort_values(by='Date',ascending=False)
+        plots = stock_plot(df,company.upper())
+        df = df[['High','Low','Open','Close','Status']].round(2)
+        df = add_class(df)
+        dt = {'price':98.60, 'company':'edwards', 'prec':33}
+        print(df)
+        return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1], tables=df, message=dt)
+    return render_template("home.html", link = plots[2], the_div=plots[0], the_script=plots[1], message=dt)
 
 @app.route('/about/',methods=['GET','POST'])
 def about():
@@ -40,10 +43,9 @@ def about():
         exchanges = request.args.getlist('ex')
         if len(exchanges)!=0:
             data = data[data['Ex Code'].isin(exchanges)]
-            data.sortby('Company')
             data = data[['Code','Company','Exchange','Ex Code']]
-        return render_template("about.html",tables=[data.to_html(classes='data')], titles=data.columns.values)
-    return render_template("about.html",tables=[data.to_html(classes='data')], titles=data.columns.values)
+        return render_template("about.html",tables=[data.to_html(classes='data')])
+    return render_template("about.html",tables=[data.to_html(classes='data')])
 
     
 if __name__=="__main__": #allows control over function

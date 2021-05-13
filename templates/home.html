@@ -1,24 +1,37 @@
 {% extends "Page.html" %} {% block content %}
 
-<div class="Input Setup">
+<div class="Input_Setup">
     <form class="POST">
-        <input title="company name" placeholder="company code" type="search" name="company" required>
-        <input type="date" id="start" name="start" , value="2021-3-22">
-        <label for="start">Start</label>
-        <input type="date" id="end" name="end" , value="2021-1-1">
-        <label for="start">End</label>
-        <button type="submit">view</button>
-        <a href="{{url_for('about')}}" target="popup" onclick="window.open('{{ url_for( 'about') }}','name','width=700,height=500,top=100,left=100')">Need Help?</a>
+        <div class="Styles">
+            <input title="company name" placeholder="company code" type="search" name="company" required><br>
+        </div>
+        <div class="Styles">
+            <input type="date" id="start" name="start" , value="2021-3-22">
+            <label for="start">Start</label><br>
+        </div>
+        <div class="Styles">
+            <input type="date" id="end" name="end" , value="2021-1-1">
+            <label for="start">End</label><br>
+        </div>
+        <div class="Styles">
+            <button type="submit">view</button>
+            <a href="{{url_for('about')}}" target="popup" onclick="window.open('{{ url_for( 'about') }}','name','width=700,height=500,top=100,left=100')">Need Help?</a>
+        </div>
     </form>
 </div>
 <div class="respond">
-    <div class='Plot'>
+    <div class="forge">
         {{the_div | safe}}
         <script src={{link}}></script>
         {{ the_script|safe }}
     </div>
-    <div class="Table">
-        {% for table in tables %} {{titles[loop.index]}} {{ table|safe }} {% endfor %}
+    <div class="formed">
+        {% for table in tables %}
+        <p>{{table|safe}}</p>
+        {% endfor %}
+    </div>
+    <div class="test">
+        {{message|safe}}
     </div>
 </div>
 

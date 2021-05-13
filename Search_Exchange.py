@@ -194,22 +194,58 @@ def stockd(start,end,buisness):
     df['Height']=abs(df.Close-df.Open)
     return(df)
 
+def hover_tool():
+    hover_html = """
+    <div>
+        <span> class = "hover-tooltip">@Date Date</span>
+    </div>
+    <div>
+        <span> class = "hover-tooltip">@Open Open</span>
+    </div>
+    <div>
+        <span> class = "hover-tooltip">@Close Close</span>
+    </div>
+    <div>
+        <span> class = "hover-tooltip">@Status Status</span>
+    </div>
+    """
+
+
 def stock_plot(df,comp):
+    curdoc().theme = 'dark_minimal'
     p=figure(x_axis_type='datetime',height=300,width=1000, sizing_mode='scale_width')
     t = Title()
     t.text = comp
     p.title = t
     p.grid.grid_line_alpha=0.3
     h12=12*60*60*1000
-    curdoc().theme = "dark_minimal"
-    p.segment(df.index,df.High,df.index,df.Low,color="black")
+    p.segment(df.index,df.High,df.index,df.Low,color="white")
+    p.background_fill_color = "black"
+    p.border_fill_color =  'black'
 
     p.rect(df.index[df['Status']=='Increase'],df.Middle[df.Status=='Increase'],
-        h12,df.Height[df.Status=='Increase'],fill_color='lime',line_color='black')
+        h12,df.Height[df.Status=='Increase'],fill_color='lime',line_color='white')
 
     p.rect(df.index[df['Status']=='Decrease'],df.Middle[df.Status=='Decrease'],
-        h12,df.Height[df.Status=='Decrease'],fill_color='red',line_color='black')
+        h12,df.Height[df.Status=='Decrease'],fill_color='red',line_color='white')
     web,div1=components(p)
     cdn_js=CDN.js_files[0]
     return(web,div1,cdn_js)
+
+def add_class(data1):
+    data = data1.to_html().split('\n')
+    count = data1.count().shape[0]-1
+    data[3]='<th>Date</th>'
+    del(data[10:21])
+    for i in range(len(data)):
+        if data[i].strip() == "<td>Increase</td>" or data[i].strip() == "<td>Decrease</td>":
+            if data[i].strip() == "<td>Increase</td>":
+                data[i]="<td class='gain'><b>Increase</b></td>"
+            elif data[i].strip() == "<td>Decrease</td>":
+                data[i]="<td class='loss'><b>Decrease</b></td>"
+            else:
+                pass
+
+    return(data)
+
 

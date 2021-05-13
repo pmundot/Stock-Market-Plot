@@ -3,16 +3,17 @@
 **-fix 
 ***-needs to be first thing done
 
-Overall:
--make oop for website ***
--nightmode day mode
+bokeh plot:
+-night mode
+-hover tool
+-include trading algorithum
 
-Dashboard:
--add multiple cells ***
+last cell:
+-current share price
 
-READ.ME:
--update REAdME.md **
+table:
+-header sticky
+-search table bigger
 
-CSS:
--use ms paint to make a outline ***
--day and night mode *
+Stock Info:
+-include crypto
